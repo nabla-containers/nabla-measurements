@@ -3,13 +3,13 @@
 APPS="node_auth python_tornado redis_test"
 SYSTEMS="runc runsc"
 
-# for a in $APPS; do
-#     for s in $SYSTEMS; do
-#         for i in 1 2 3 4 5; do
-#             sudo ./runtest.bash $s $a results/$s-$a-$i;
-#         done;
-#     done;
-# done
+for a in $APPS; do
+    for s in $SYSTEMS; do
+        for i in 1 2 3 4 5; do
+            sudo ./runtest.bash $s $a results/$s-$a-$i;
+        done;
+    done;
+done
 
 echo "# test N min max sum mean stddev" > results/summary-ftrace.dat
 for a in $APPS; do
