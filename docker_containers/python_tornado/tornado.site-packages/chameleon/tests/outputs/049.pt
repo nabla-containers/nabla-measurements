@@ -1,0 +1,11 @@
+<html>
+  <body>
+    <pre>amp=&amp;amp; lt=&amp;lt;</pre>
+    <pre>amp=&amp; lt=&lt;</pre>
+    <script />
+    &lt;script /&gt;
+    &lt;script /&gt;
+    <script />
+    <img alt="1 &lt; 2: True" />
+  </body>
+</html>

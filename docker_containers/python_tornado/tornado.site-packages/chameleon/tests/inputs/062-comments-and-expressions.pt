@@ -1,0 +1,27 @@
+<div>
+  <!--! ${dropped} -->
+</div>
+
+<div>
+  <!--? ${left alone} -->
+</div>
+
+<div>
+  <!-- ${'not left alone'} -->
+</div>
+
+<div meta:interpolation="true">
+  <!-- ${'not left alone'} -->
+</div>
+
+<div meta:interpolation="false">
+  <!-- ${left alone} -->
+</div>
+
+<!--[if IE ${6}]>
+  Special instructions for IE 6 here
+<![endif]-->
+
+<!--?[if IE 6]>
+  ${left alone}
+<![endif]-->

@@ -1,0 +1,25 @@
+<html>
+  <body>
+    <span class="hello" />
+    <span class="hello" />
+    <span class="hello" />
+    <span data-æøå="hello" />
+    <span />
+    <span b="2" c="3" d=4></span>
+    <span a="1" c="3" />
+    <span a="1" b="2" />
+    <span a="1" />
+    <span a="1" b=";" c="3" />
+    <span a="1" b="&amp;" c="3" />
+    <span class="goodbye" />
+    <span class="&quot;goodbye&quot;" />
+    <span class="'goodbye'" />
+    <span class='&#39;goodbye&#39;' />
+    <span class="goodbye" />
+    <span class="goodbye" />
+    <span a="1" class="goodbye" />
+    <span class="&quot;goodbye&quot;" />
+    <span class="&quot;goodbye&quot;" />
+    <span class="hello" />
+  </body>
+</html>

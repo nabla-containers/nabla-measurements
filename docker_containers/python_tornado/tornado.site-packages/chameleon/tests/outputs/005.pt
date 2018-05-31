@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <img class="default" />
+    <img />
+    <span>Default</span>
+    <span>True</span>
+    <span>False</span>
+    <span>
+      <em>Computed default</em>
+    </span>
+  </body>
+</html>

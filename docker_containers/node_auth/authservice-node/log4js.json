@@ -1,0 +1,23 @@
+{
+  "appenders": [
+    {
+        "type": "file",
+        "filename": "acmeair_auth.log",
+        "maxLogSize": 20480,
+        "backups": 3,
+        "category": "authservice_app"
+      },{
+        "type": "file",
+        "filename": "acmeair_auth.log",
+        "maxLogSize": 20480,
+        "backups": 3,
+        "category": "authservice"
+      },{
+        "type": "file",
+        "filename": "acmeair_mongo.log",
+        "maxLogSize": 20480,
+        "backups": 3,
+        "category": "mongo"
+      }
+  ]
+}

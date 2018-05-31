@@ -1,0 +1,21 @@
+<html>
+  <body>
+    ${'Hello world!'}
+    ${literal}
+    ${structure: literal.s}
+    ${"%stype 'str'%s" % (chr(60), chr(62))}
+    &&
+    <script>
+      $$(document).ready(function(){
+        imagecropping.init_editor();
+      });
+    </script>
+    ${None}
+    ${None or
+      'Hello world'}
+    $leftalone
+    <div>${None}</div>
+    <div>${1 &lt; 2 and 'Hello world' or None}</div>
+    <div>${} is ignored.</div>
+  </body>
+</html>

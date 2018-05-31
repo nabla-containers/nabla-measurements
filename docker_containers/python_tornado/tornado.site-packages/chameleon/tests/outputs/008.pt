@@ -1,0 +1,12 @@
+<html>
+  <body>
+    {}
+
+    <div class="dynamic">
+      static
+    </div>
+    <div>
+      nothing
+    </div>
+  </body>
+</html>

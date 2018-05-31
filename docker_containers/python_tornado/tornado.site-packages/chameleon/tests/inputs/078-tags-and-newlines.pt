@@ -1,0 +1,23 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      tal:omit-tag=""
+      tal:define="id 'foo'">
+  <body>
+      <span id="toDataContainer"
+            tal:attributes="id string:${id}-toDataContainer">
+        <script type="text/javascript" tal:content="string:
+          copyDataForSubmit('${id}');">
+          // initial copying of field "field.to" --> "field"
+          copyDataForSubmit("<i tal:replace="${id}"/>");
+        </script>
+      </span>
+      <tal:block
+    repeat="value python: (1, 2, 3)"
+    ><span class="selected-option"
+           tal:content="value"
+    /><tal:block condition="not:repeat.value.end">, </tal:block
+  ></tal:block
+>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<?python
+    foo = [1, 2, 3] ?>
+
+<ul>
+  <li tal:repeat="f foo" tal:content="f" />
+</ul>
+
+<?python
+    foo = [1, 2, 3]
+    boo = [4, 5, 6]
+?>
+
+<ul>
+  <li tal:repeat="(f, g) zip(foo, boo)" tal:content="f + g" />
+</ul>
+
+<div>
+  <?python numbers = map(str, range(1, 10)) ?>
+  Please input a number from the range ${", ".join(numbers)}.
+</div>
+
+<div>
+  <?python
+     def function(i):
+         return i + 1
+     ?>
+  41 + 1 = ${function(41)}.
+</div>

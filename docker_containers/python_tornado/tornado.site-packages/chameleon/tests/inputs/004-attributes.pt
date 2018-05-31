@@ -1,0 +1,25 @@
+<html>
+  <body>
+    <span tal:attributes="class 'hello'" />
+    <span class="goodbye" tal:attributes="class 'hello'" />
+    <span CLASS="goodbye" tal:attributes="class 'hello'" />
+    <span data-æøå="goodbye" tal:attributes="data-æøå 'hello'" />
+    <span tal:attributes="class None" />
+    <span a="1" b="2" c="3" d=4 tal:attributes="a None"></span>
+    <span a="1" b="2" c="3" tal:attributes="b None" />
+    <span a="1" b="2" c="3" tal:attributes="c None" />
+    <span a="1" b="2" c="3" tal:attributes="b None; c None" />
+    <span a="1" b="2" c="3" tal:attributes="b string:;;" />
+    <span a="1" b="2" c="3" tal:attributes="b string:&amp;" />
+    <span class="hello" tal:attributes="class 'goodbye'" />
+    <span class="hello" tal:attributes="class '&quot;goodbye&quot;'" />
+    <span class="hello" tal:attributes="class '\'goodbye\''" />
+    <span class='hello' tal:attributes="class '\'goodbye\''" />
+    <span tal:attributes="{'class': 'goodbye'}" />
+    <span class="hello" tal:attributes="{'class': 'goodbye'}" />
+    <span a="1" class="hello" tal:attributes="{'class': 'goodbye'}" />
+    <span tal:attributes="{'class': '&quot;goodbye&quot;'}" />
+    <span tal:attributes="class 'hello'; {'class': '&quot;goodbye&quot;'}" />
+    <span tal:attributes="{'class': '&quot;goodbye&quot;'}; class 'hello'" />
+  </body>
+</html>

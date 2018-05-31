@@ -1,0 +1,12 @@
+/node_modules
+/.classpath
+/.metadata
+/.project
+/.settings
+/bin
+/build
+/target
+npm-debug.log
+acmeair_node.log
+*.log
+.DS_Store

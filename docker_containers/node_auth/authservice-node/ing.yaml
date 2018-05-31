@@ -1,0 +1,28 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: acme
+spec:
+  rules:
+  - host: INGRESS_URL 
+    http:
+      paths:
+      - path: /auth
+        backend:
+         serviceName: acme-auth-service
+         servicePort: 80
+      - path: /customer
+        backend:
+          serviceName: acme-customer-service
+          servicePort: 80
+      - path: /booking
+        backend:
+          serviceName: acme-booking-service
+          servicePort: 80
+      - path: /flight
+        backend:
+          serviceName: acme-flight-service
+          servicePort: 80
+
+...
