@@ -69,6 +69,6 @@ We have included some results for default docker, gvisor, and kata
 containers that were obtained using the `graphs_generate.bash` script.
 
 
-![functions](https://github.ibm.com/djwillia/ftracing/blob/master/graph-functions.png)
-![syscalls](https://github.ibm.com/djwillia/ftracing/blob/master/graph-syscalls.png)
+![functions](https://github.ibm.com/nabla-containers/ftracing/blob/master/graph-functions.png?raw=true)
+![syscalls](https://github.ibm.com/nabla-containers/ftracing/blob/master/graph-syscalls.png?raw=true)
 
