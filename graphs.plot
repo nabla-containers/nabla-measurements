@@ -25,7 +25,10 @@ plot \
 'results/summary-ftrace-runc.dat' using ($0-.2):6 with boxes ls 3 title "docker" fillstyle solid 1, \
 'results/summary-ftrace-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-ftrace-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
-'results/summary-ftrace-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle
+'results/summary-ftrace-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-ftrace-kata.dat' using ($0+.2):6 with boxes ls 3 title "kata" fillstyle solid .3, \
+'results/summary-ftrace-kata.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
+
 
 set output 'graph-syscalls.png'
 set ylabel "Unique syscalls accessed"
@@ -33,4 +36,7 @@ plot \
 'results/summary-syscalls-runc.dat' using ($0-.2):6 with boxes ls 3 title "docker" fillstyle solid 1, \
 'results/summary-syscalls-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-syscalls-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
-'results/summary-syscalls-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle
+'results/summary-syscalls-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-syscalls-kata.dat' using ($0+.2):6 with boxes ls 3 title "kata" fillstyle solid .3, \
+'results/summary-syscalls-kata.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
+

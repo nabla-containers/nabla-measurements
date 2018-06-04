@@ -18,12 +18,25 @@ ends up in a directory for later perusal.
 
 The easiest way to replicate a test is to run commands of the form
 `./runtest.bash <RUNTIME> <CONTAINER> <OUTPUT_DIR>`.  RUNTIME can
-currently be `runc` (default docker) or `runsc` (gvisor) and CONTAINER
-is one of those specified above.  Here are some examples:
+currently be `runc` (default docker), `runsc` (gvisor), or `kata`
+(kata containers) and CONTAINER is one of those specified above.  Here
+are some examples:
 
     sudo ./runtest.bash runc python_tornado results/docker-python
     sudo ./runtest.bash runsc python_tornado results/gvisor-python
+    sudo ./runtest.bash kata python_tornado results/gvisor-python
 
+We inform the Docker daemon of the alternate runtimes by adding
+them to `/etc/docker/daemon.json`:
+
+    "runtimes": {
+        "kata": {
+            "path": "/usr/bin/kata-runtime"
+        },
+        "runsc": {
+            "path": "/usr/local/bin/runsc"
+        }
+    }
 
 ###  Technical notes
 
@@ -33,7 +46,8 @@ give the tracing enough time to turn on.  Partially this is because of
 how we gather the relevant pids.  This is done by looking through
 `pstree` for all the children of the `docker-containe` command
 specifying the `-runtime-root`, which is either `runtime-runc` (in the
-default case) or `runtime-runsc` (in the gvisor case).
+default case), `runtime-runsc` (in the gvisor case), or `runtime-kata`
+(in the kata containers case).
 
 We also process the raw traces primarily to eliminate interrupts,
 which may perform work on behalf of other processes.  There are two
@@ -51,8 +65,8 @@ system calls (e.g., `grep -i "^sys\_"`)
 
 ### Our results
 
-We have included some results for default docker and gvisor that were
-obtained using the `graphs_generate.bash` script.
+We have included some results for default docker, gvisor, and kata
+containers that were obtained using the `graphs_generate.bash` script.
 
 
 ![functions](https://github.ibm.com/djwillia/ftracing/blob/master/graph-functions.png?raw=true)
