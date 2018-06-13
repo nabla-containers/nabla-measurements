@@ -26,6 +26,8 @@ plot \
 'results/summary-ftrace-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-ftrace-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
 'results/summary-ftrace-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-ftrace-runsc-kvm.dat' using ($0+.1):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid .5, \
+'results/summary-ftrace-runsc-kvm.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-ftrace-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .3, \
 'results/summary-ftrace-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 
@@ -37,6 +39,8 @@ plot \
 'results/summary-syscalls-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-syscalls-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
 'results/summary-syscalls-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-syscalls-runsc-kvm.dat' using ($0+.1):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid .5, \
+'results/summary-syscalls-runsc-kvm.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .3, \
 'results/summary-syscalls-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 

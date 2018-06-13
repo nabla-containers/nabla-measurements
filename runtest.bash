@@ -30,6 +30,9 @@ case $RUNTIME in
     "runsc")
         docker run -d --rm --runtime=runsc --name=tracetest $CONTAINER
         ;;
+    "runsck")
+        docker run -d --rm --runtime=runsck --name=tracetest $CONTAINER
+        ;;
     "kata")
         docker run -d --rm --runtime=kata --name=tracetest $CONTAINER
         ;;

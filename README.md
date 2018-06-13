@@ -18,13 +18,14 @@ ends up in a directory for later perusal.
 
 The easiest way to replicate a test is to run commands of the form
 `./runtest.bash <RUNTIME> <CONTAINER> <OUTPUT_DIR>`.  RUNTIME can
-currently be `runc` (default docker), `runnc` (nabla) or `runsc`
-(gvisor), and CONTAINER is one of those specified above.  Here are
-some examples:
+currently be `runc` (default docker), `runnc` (nabla), `runsc`
+(gvisor), or `runsck` (gvisor in kvm mode), and CONTAINER is one of
+those specified above.  Here are some examples:
 
     sudo ./runtest.bash runc node-express results/docker-node-express
     sudo ./runtest.bash runnc node-express results/nabla-node-express
-    sudo ./runtest.bash runsc node-express results/gvisor-node-express       
+    sudo ./runtest.bash runsc node-express results/gvisor-node-express
+    sudo ./runtest.bash runsck node-express results/gvisork-node-express           
 
 We inform the Docker daemon of the alternate runtimes by adding them
 to `/etc/docker/daemon.json` (as also described in the `runnc`
@@ -37,7 +38,16 @@ repository's README):
         "runsc": {
             "path": "/usr/local/bin/runsc"
         }
+        "runsck": {
+            "path": "/usr/local/bin/runsc",
+            "runtimeArgs": [
+                "--platform=kvm"
+            ]
+        }
+
     }
+
+
 
 ###  Technical notes
 
