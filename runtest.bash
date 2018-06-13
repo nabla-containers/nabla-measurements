@@ -59,7 +59,7 @@ echo "## started tracing"
 
 # offer load
 case $CONTAINER in
-    "python_tornado")
+    "python-tornado")
         for ((i=0;i<30;i++)); do
             sleep .1
             curl $IP:5000

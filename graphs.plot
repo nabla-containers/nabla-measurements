@@ -17,7 +17,7 @@ set style line 3 lt 1 pt 4 lc rgb '#0000A0'
 set boxwidth .2
 set yrange [0:*]
 set xrange [-.5:*]
-set xtics ("node-express" 0, "redis-test" 1)
+set xtics ("node-express" 0, "redis-test" 1, "python-tornado" 2)
 
 set output 'graph-functions.png'
 set ylabel "Unique kernel functions accessed"

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APPS="node-express redis-test"
+APPS="node-express redis-test python-tornado"
 SYSTEMS="runc runsc runnc"
 
 for a in $APPS; do
