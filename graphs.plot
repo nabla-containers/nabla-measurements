@@ -37,6 +37,6 @@ plot \
 'results/summary-syscalls-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-syscalls-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
 'results/summary-syscalls-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "runnc" fillstyle solid .3, \
+'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .3, \
 'results/summary-syscalls-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 
