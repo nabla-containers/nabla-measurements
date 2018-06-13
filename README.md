@@ -9,6 +9,7 @@ repository.  Currently this consists of:
 
 * **node-express**: a node.js express application 
 * **redis-test**: a redis key/value server
+* **python-tornado**: a Python tornado web server
 
 Each run of `runtest.bash` sets up the kernel ftrace facility, runs
 the container, turns on tracing for the relevant pids, offers load,
@@ -17,9 +18,9 @@ ends up in a directory for later perusal.
 
 The easiest way to replicate a test is to run commands of the form
 `./runtest.bash <RUNTIME> <CONTAINER> <OUTPUT_DIR>`.  RUNTIME can
-currently be `runc` (default docker), `runnc` (nabla), `runsc`
-(gvisor), or `kata` (kata containers) and CONTAINER is one of those
-specified above.  Here are some examples:
+currently be `runc` (default docker), `runnc` (nabla) or `runsc`
+(gvisor), and CONTAINER is one of those specified above.  Here are
+some examples:
 
     sudo ./runtest.bash runc node-express results/docker-node-express
     sudo ./runtest.bash runnc node-express results/nabla-node-express
