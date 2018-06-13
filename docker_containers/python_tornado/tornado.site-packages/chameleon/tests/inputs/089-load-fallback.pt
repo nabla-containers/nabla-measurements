@@ -1,3 +1,0 @@
-<html metal:use-macro="load: tests/missing.pt |
-                             chameleon:tests/inputs/hello_world.pt"
-      />

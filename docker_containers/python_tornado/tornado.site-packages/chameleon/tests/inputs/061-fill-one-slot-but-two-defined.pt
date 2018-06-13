@@ -1,3 +1,0 @@
-<html metal:use-macro="load('060-macro-with-multiple-same-slots.pt').macros['main']">
-  <metal:title fill-slot="title">My document</metal:title>
-</html>

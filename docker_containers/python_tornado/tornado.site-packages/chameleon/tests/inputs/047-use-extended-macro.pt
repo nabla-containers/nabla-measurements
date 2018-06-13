@@ -1,3 +1,0 @@
-<html metal:use-macro="load('046-extend-macro.pt').macros['extended']">
-  <em metal:fill-slot="kind">Extended</em>
-</html>

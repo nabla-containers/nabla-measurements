@@ -4,12 +4,11 @@ to the host kernel.  More specifically, these experiments measure how
 many kernel functions are accessed by an application as it runs.
 
 The script `runtest.bash` performs a run of a test on one of the
-Docker containers that we have provided in the `docker_containers`
-directory.  Currently this consists of:
+Docker containers that we have provided in the `nabla-demo-apps`
+repository.  Currently this consists of:
 
-* **node_auth**: a node.js express application (an auth server)
-* **python_tornado**: a python tornado web server
-* **redis-server**: a redis key/value server
+* **node-express**: a node.js express application 
+* **redis-test**: a redis key/value server
 
 Each run of `runtest.bash` sets up the kernel ftrace facility, runs
 the container, turns on tracing for the relevant pids, offers load,
@@ -18,21 +17,22 @@ ends up in a directory for later perusal.
 
 The easiest way to replicate a test is to run commands of the form
 `./runtest.bash <RUNTIME> <CONTAINER> <OUTPUT_DIR>`.  RUNTIME can
-currently be `runc` (default docker), `runsc` (gvisor), or `kata`
-(kata containers) and CONTAINER is one of those specified above.  Here
-are some examples:
+currently be `runc` (default docker), `runnc` (nabla), `runsc`
+(gvisor), or `kata` (kata containers) and CONTAINER is one of those
+specified above.  Here are some examples:
 
-    sudo ./runtest.bash runc python_tornado results/docker-python
-    sudo ./runtest.bash runsc python_tornado results/gvisor-python
-    sudo ./runtest.bash kata python_tornado results/gvisor-python
+    sudo ./runtest.bash runc node-express results/docker-node-express
+    sudo ./runtest.bash runnc node-express results/nabla-node-express
+    sudo ./runtest.bash runsc node-express results/gvisor-node-express       
 
-We inform the Docker daemon of the alternate runtimes by adding
-them to `/etc/docker/daemon.json`:
+We inform the Docker daemon of the alternate runtimes by adding them
+to `/etc/docker/daemon.json` (as also described in the `runnc`
+repository's README):
 
     "runtimes": {
-        "kata": {
-            "path": "/usr/bin/kata-runtime"
-        },
+        "runnc": {
+            "path": "/usr/local/bin/runnc"
+        }
         "runsc": {
             "path": "/usr/local/bin/runsc"
         }
@@ -46,8 +46,8 @@ give the tracing enough time to turn on.  Partially this is because of
 how we gather the relevant pids.  This is done by looking through
 `pstree` for all the children of the `docker-containe` command
 specifying the `-runtime-root`, which is either `runtime-runc` (in the
-default case), `runtime-runsc` (in the gvisor case), or `runtime-kata`
-(in the kata containers case).
+default case), `runtime-runnc` (in the nabla case), or `runtime-runsc`
+(in the gvisor case).
 
 We also process the raw traces primarily to eliminate interrupts,
 which may perform work on behalf of other processes.  There are two
@@ -65,7 +65,7 @@ system calls (e.g., `grep -i "^sys\_"`)
 
 ### Our results
 
-We have included some results for default docker, gvisor, and kata
+We have included some results for default docker, nabla, and gvisor
 containers that were obtained using the `graphs_generate.bash` script.
 
 

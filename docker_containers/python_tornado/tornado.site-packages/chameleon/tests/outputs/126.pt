@@ -1,9 +1,0 @@
-<html>
-  <body>
-    &amp;
-    &amp;
-    &amp;
-    &amp;
-    <a href="localhost?a=1b&amp;2" />
-  </body>
-</html>

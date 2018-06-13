@@ -1,4 +1,0 @@
-<tal:block>
-  <div	id="test"	class="${'test'}">
-  </div>
-</tal:block>

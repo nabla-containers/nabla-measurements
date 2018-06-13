@@ -17,7 +17,7 @@ set style line 3 lt 1 pt 4 lc rgb '#0000A0'
 set boxwidth .2
 set yrange [0:*]
 set xrange [-.5:*]
-set xtics ("node\\_auth" 0, "python\\_tornado" 1, "redis\\_test" 2)
+set xtics ("node-express" 0, "redis-test" 1)
 
 set output 'graph-functions.png'
 set ylabel "Unique kernel functions accessed"
@@ -26,8 +26,8 @@ plot \
 'results/summary-ftrace-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-ftrace-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
 'results/summary-ftrace-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-kata.dat' using ($0+.2):6 with boxes ls 3 title "kata" fillstyle solid .3, \
-'results/summary-ftrace-kata.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
+'results/summary-ftrace-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .3, \
+'results/summary-ftrace-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 
 
 set output 'graph-syscalls.png'
@@ -37,6 +37,6 @@ plot \
 'results/summary-syscalls-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
 'results/summary-syscalls-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
 'results/summary-syscalls-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-kata.dat' using ($0+.2):6 with boxes ls 3 title "kata" fillstyle solid .3, \
-'results/summary-syscalls-kata.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
+'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "runnc" fillstyle solid .3, \
+'results/summary-syscalls-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 

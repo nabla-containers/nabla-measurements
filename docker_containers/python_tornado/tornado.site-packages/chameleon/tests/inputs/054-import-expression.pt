@@ -1,3 +1,0 @@
-<div tal:define="datetime import: datetime.datetime">
-  ${datetime(1984, 12, 31).isoformat()}
-</div>

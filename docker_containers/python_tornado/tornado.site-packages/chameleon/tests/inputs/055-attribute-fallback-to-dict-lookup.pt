@@ -1,4 +1,0 @@
-<div tal:define="obj {'foo': 'bar', 'boo': {'bar': 'baz'}}">
-  ${obj.foo}
-  ${obj.boo.bar}
-</div>

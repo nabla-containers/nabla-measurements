@@ -1,7 +1,7 @@
 #!/bin/bash
 
-APPS="node_auth python_tornado redis_test"
-SYSTEMS="runc runsc kata"
+APPS="node-express redis-test"
+SYSTEMS="runc runsc runnc"
 
 for a in $APPS; do
     for s in $SYSTEMS; do

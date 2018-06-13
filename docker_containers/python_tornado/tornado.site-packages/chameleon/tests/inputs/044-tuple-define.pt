@@ -1,5 +1,0 @@
-<html>
-  <body tal:define="(a, b) 'a', 'b'">
-    ${a}, ${b}
-  </body>
-</html>

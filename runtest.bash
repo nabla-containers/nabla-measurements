@@ -33,6 +33,9 @@ case $RUNTIME in
     "kata")
         docker run -d --rm --runtime=kata --name=tracetest $CONTAINER
         ;;
+    "runnc")
+        docker run -d --rm --runtime=runnc --name=tracetest $CONTAINER-nabla
+        ;;
 esac
 echo "## running $CONTAINER on $RUNTIME"
 
@@ -62,16 +65,16 @@ case $CONTAINER in
             curl $IP:5000
         done
         ;;
-    "redis_test")
+    "redis-test")
         for ((i=0;i<30;i++)); do
             sleep .1
             redis-cli -h $IP -p 6379 set foo$i bar$i
         done
         ;;
-    "node_auth")
+    "node-express")
         for ((i=0;i<30;i++)); do
             sleep .1
-            curl $IP:9083/auth
+            curl $IP:8080
         done
         ;;
 esac
