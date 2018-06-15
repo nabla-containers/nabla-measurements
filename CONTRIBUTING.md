@@ -1,6 +1,6 @@
 We require all contributions to be signed off on, indicating that the
-contributor agrees to the Developer's Certificate of Origin 1.1 [used
-by Linux][1] and reproduced below:
+contributor agrees to the Developer's Certificate of Origin 1.1
+[used by Linux][1] and reproduced below:
 
 > Developer's Certificate of Origin 1.1
 > 
@@ -27,4 +27,4 @@ by Linux][1] and reproduced below:
 >    this project or the open source license(s) involved.
 
 
-[1]: https://github.com/torvalds/linux/blob/master/Documentation/process/submitting-patches.rst)
+[1]: https://github.com/torvalds/linux/blob/master/Documentation/process/submitting-patches.rst
