@@ -4,15 +4,16 @@ to the host kernel.  More specifically, these experiments measure how
 many kernel functions are accessed by an application as it runs.
 
 The script `runtest.bash` performs a run of a test on one of the
-Docker containers that we have provided in the `nabla-demo-apps`
+Docker containers that we have provided in the
+[nabla-demo-apps](https://github.com/nabla-containers/nabla-demo-apps)
 repository.  Currently this consists of:
 
-* **node-express**: a node.js express application 
-* **redis-test**: a redis key/value server
-* **python-tornado**: a Python tornado web server
+* [**node-express**][1]: a node.js express application 
+* [**redis-test**][2]: a redis key/value server
+* [**python-tornado**][3]: a Python tornado web server
 
-Each run of `runtest.bash` sets up the kernel ftrace facility, runs
-the container, turns on tracing for the relevant pids, offers load,
+Each run of `runtest.bash` sets up the kernel `ftrace` facility, runs
+the container, turns on tracing for the relevant `pid`s, offers load,
 cleans up and processes the results.  The raw and processed output
 ends up in a directory for later perusal.
 
@@ -28,8 +29,8 @@ those specified above.  Here are some examples:
     sudo ./runtest.bash runsck node-express results/gvisork-node-express           
 
 We inform the Docker daemon of the alternate runtimes by adding them
-to `/etc/docker/daemon.json` (as also described in the `runnc`
-repository's README):
+to `/etc/docker/daemon.json` (as also described in the [`runnc`
+repository](https://github.com/nabla-containers/runnc)):
 
     "runtimes": {
         "runnc": {
@@ -80,6 +81,10 @@ We have included some results for default docker, nabla, and gvisor
 containers that were obtained using the `graphs_generate.bash` script.
 
 
-![functions](https://github.ibm.com/nabla-containers/ftracing/blob/master/graph-functions.png?raw=true)
-![syscalls](https://github.ibm.com/nabla-containers/ftracing/blob/master/graph-syscalls.png?raw=true)
+![functions](https://github.com/nabla-containers/ftracing/blob/master/graph-functions.png?raw=true)
+![syscalls](https://github.com/nabla-containers/ftracing/blob/master/graph-syscalls.png?raw=true)
 
+
+[1]: https://github.com/nabla-containers/nabla-demo-apps/tree/master/node-express
+[2]: https://github.com/nabla-containers/nabla-demo-apps/tree/master/redis-test
+[3]: https://github.com/nabla-containers/nabla-demo-apps/tree/master/python-tornado
