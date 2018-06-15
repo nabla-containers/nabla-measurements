@@ -81,8 +81,8 @@ We have included some results for default docker, nabla, and gvisor
 containers that were obtained using the `graphs_generate.bash` script.
 
 
-![functions](https://github.com/nabla-containers/ftracing/blob/master/graph-functions.png?raw=true)
-![syscalls](https://github.com/nabla-containers/ftracing/blob/master/graph-syscalls.png?raw=true)
+![functions](https://github.com/nabla-containers/measurements/blob/master/graph-functions.png?raw=true)
+![syscalls](https://github.com/nabla-containers/measurements/blob/master/graph-syscalls.png?raw=true)
 
 
 [1]: https://github.com/nabla-containers/nabla-demo-apps/tree/master/node-express
