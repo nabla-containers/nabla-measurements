@@ -24,6 +24,10 @@ IP=172.17.0.2
 # make output directory
 mkdir -p $DIR
 
+# pull latest test container
+docker pull $CONTAINER
+docker pull $CONTAINER-nabla
+
 # set up kernel ftrace parameters
 echo "function_graph" > /sys/kernel/debug/tracing/current_tracer
 echo "function-fork" > /sys/kernel/debug/tracing/trace_options
@@ -78,19 +82,19 @@ echo "## started tracing"
 
 # offer load
 case $CONTAINER in
-    "python-tornado")
+    "nablact/python-tornado")
         for ((i=0;i<30;i++)); do
             sleep .1
             curl $IP:5000
         done
         ;;
-    "redis-test")
+    "nablact/redis-test")
         for ((i=0;i<30;i++)); do
             sleep .1
             redis-cli -h $IP -p 6379 set foo$i bar$i
         done
         ;;
-    "node-express")
+    "nablact/node-express")
         for ((i=0;i<30;i++)); do
             sleep .1
             curl $IP:8080

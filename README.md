@@ -19,12 +19,13 @@ ends up in a directory for later perusal.
 
 The easiest way to replicate a test is to run commands of the form
 `./runtest.bash <RUNTIME> <CONTAINER> <OUTPUT_DIR>`.  RUNTIME can
-currently be `runc` (default docker), `runnc` (nabla), `runsc`
-(gvisor), or `runsck` (gvisor in kvm mode), and CONTAINER is one of
-those specified above.  Here are some examples:
+currently be `runc` (default docker), `runnc` (nabla), `kata` (kata
+containers), `runsc` (gvisor), or `runsck` (gvisor in kvm mode), and
+CONTAINER is one of those specified above.  Here are some examples:
 
     sudo ./runtest.bash runc node-express results/docker-node-express
     sudo ./runtest.bash runnc node-express results/nabla-node-express
+    sudo ./runtest.bash kata node-express results/kata-node-express
     sudo ./runtest.bash runsc node-express results/gvisor-node-express
     sudo ./runtest.bash runsck node-express results/gvisork-node-express           
 
@@ -35,10 +36,13 @@ repository](https://github.com/nabla-containers/runnc)):
     "runtimes": {
         "runnc": {
             "path": "/usr/local/bin/runnc"
-        }
+        },
+        "kata": {
+            "path": "/usr/bin/kata-runtime"
+        },
         "runsc": {
             "path": "/usr/local/bin/runsc"
-        }
+        },
         "runsck": {
             "path": "/usr/local/bin/runsc",
             "runtimeArgs": [
@@ -58,8 +62,8 @@ give the tracing enough time to turn on.  Partially this is because of
 how we gather the relevant pids.  This is done by looking through
 `pstree` for all the children of the `docker-containe` command
 specifying the `-runtime-root`, which is either `runtime-runc` (in the
-default case), `runtime-runnc` (in the nabla case), or `runtime-runsc`
-(in the gvisor case).
+default case), `runtime-runnc` (in the nabla case), `runtime-kata` (in
+the kata containers case) or `runtime-runsc` (in the gvisor case).
 
 We also process the raw traces primarily to eliminate interrupts,
 which may perform work on behalf of other processes.  There are two
@@ -77,8 +81,9 @@ system calls (e.g., `grep -i "^sys\_"`)
 
 ### Our results
 
-We have included some results for default docker, nabla, and gvisor
-containers that were obtained using the `graphs_generate.bash` script.
+We have included some results for default docker, nabla, kata, and
+gvisor containers that were obtained using the `graphs_generate.bash`
+script.
 
 
 ![functions](https://github.com/nabla-containers/measurements/blob/master/graph-functions.png?raw=true)

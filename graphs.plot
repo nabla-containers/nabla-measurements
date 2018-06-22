@@ -30,7 +30,7 @@ set style line 1 lt rgb '#A00000' ps 1 pt 5 lw 1
 set style line 2 lt 1 pt 6 lc rgb '#008000'
 set style line 3 lt 1 pt 4 lc rgb '#0000A0'
 
-set boxwidth .2
+set boxwidth .1
 set yrange [0:*]
 set xrange [-.5:*]
 set xtics ("node-express" 0, "redis-test" 1, "python-tornado" 2)
@@ -38,25 +38,29 @@ set xtics ("node-express" 0, "redis-test" 1, "python-tornado" 2)
 set output 'graph-functions.png'
 set ylabel "Unique kernel functions accessed"
 plot \
-'results/summary-ftrace-runc.dat' using ($0-.2):6 with boxes ls 3 title "docker" fillstyle solid 1, \
-'results/summary-ftrace-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
-'results/summary-ftrace-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-runsc-kvm.dat' using ($0+.1):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid .5, \
-'results/summary-ftrace-runsc-kvm.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .3, \
+'results/summary-ftrace-runsck.dat' using ($0-.2):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid 1, \
+'results/summary-ftrace-runsck.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-ftrace-runsc.dat' using ($0-.1):6 with boxes ls 3 title "gvisor" fillstyle solid .8, \
+'results/summary-ftrace-runsc.dat' using ($0-.1):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-ftrace-runc.dat' using ($0):6 with boxes ls 3 title "docker" fillstyle solid .6, \
+'results/summary-ftrace-runc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-ftrace-kata.dat' using ($0+.1):6 with boxes ls 3 title "kata" fillstyle solid .4, \
+'results/summary-ftrace-kata.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-ftrace-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .2, \
 'results/summary-ftrace-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 
 
 set output 'graph-syscalls.png'
 set ylabel "Unique syscalls accessed"
 plot \
-'results/summary-syscalls-runc.dat' using ($0-.2):6 with boxes ls 3 title "docker" fillstyle solid 1, \
-'results/summary-syscalls-runc.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runsc.dat' using ($0):6 with boxes ls 3 title "gvisor" fillstyle solid .6, \
-'results/summary-syscalls-runsc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runsc-kvm.dat' using ($0+.1):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid .5, \
-'results/summary-syscalls-runsc-kvm.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .3, \
+'results/summary-syscalls-runsck.dat' using ($0-.2):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid 1, \
+'results/summary-syscalls-runsck.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-syscalls-runsc.dat' using ($0-.1):6 with boxes ls 3 title "gvisor" fillstyle solid .8, \
+'results/summary-syscalls-runsc.dat' using ($0-.1):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-syscalls-runc.dat' using ($0):6 with boxes ls 3 title "docker" fillstyle solid .6, \
+'results/summary-syscalls-runc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-syscalls-kata.dat' using ($0+.1):6 with boxes ls 3 title "kata" fillstyle solid .4, \
+'results/summary-syscalls-kata.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
+'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .2, \
 'results/summary-syscalls-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
 
