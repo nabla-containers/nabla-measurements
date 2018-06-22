@@ -45,16 +45,16 @@ echo "## set up kernel ftrace parameters"
 # run service
 case $RUNTIME in
     "runc")
-        docker run -d --rm --name=tracetest $CONTAINER 
+        docker run -d --rm --name=tracetest $CONTAINER-legacy
         ;;
     "runsc")
-        docker run -d --rm --runtime=runsc --name=tracetest $CONTAINER
+        docker run -d --rm --runtime=runsc --name=tracetest $CONTAINER-legacy
         ;;
     "runsck")
-        docker run -d --rm --runtime=runsck --name=tracetest $CONTAINER
+        docker run -d --rm --runtime=runsck --name=tracetest $CONTAINER-legacy
         ;;
     "kata")
-        docker run -d --rm --runtime=kata --name=tracetest $CONTAINER
+        docker run -d --rm --runtime=kata --name=tracetest $CONTAINER-legacy
         ;;
     "runnc")
         docker run -d --rm --runtime=runnc --name=tracetest $CONTAINER-nabla
