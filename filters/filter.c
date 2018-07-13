@@ -41,40 +41,50 @@ int check_for_interrupts(char *line) {
 }
 
 int main(int argc, char **argv) {
-    int bracket = 0;
+    int filtering = 0;
+    int filtering_indent = 0;
     int started = 0;
     char *line;
 
     while ((line = fgets(buf, BUFLEN, stdin)) != NULL) {
-        
+
         if (!started) {
-            /* we don't start until we see the first system call */
             int i = -1;
             while(line[++i] == ' ')
                 ;
 
-            if (strncmp(line + i, "SyS", 3) && strncmp(line + i, "sys", 3))
+            /* we don't start until we see the first system call */
+            /* or we see kthread_should_stop (for kernel processes) */
+            if (!strncmp(line + i, "SyS", 3)
+                || !strncmp(line + i, "sys", 3)
+                || !strncmp(line + i, "do_syscall", 10)
+                || !strncmp(line + i, "kthread_should_stop", 19))
+                started = 1;
+            else
                 continue;
-            
-            started = 1;
         }
 
-
-        if (bracket == 0) {
+        /* checking for brackets (e.g., { ... } ) is a bit fragile
+         * because ftrace can mislabel one.  However, ftrace's
+         * indentation is more reliable. */
+        int indent = -1;
+        while(line[++indent] == ' ')
+            ;
+        if (!filtering) {
             if (check_for_interrupts(line)) {
-                bracket = 1;
+                filtering = 1;
+                filtering_indent = indent;
                 continue;
             }
         }
-            
-        if (bracket > 0) {
-            if (strchr(line, '{'))
-                bracket++;
-            else if (strchr(line, '}'))
-                bracket--;
-            continue;
+
+        if (filtering) {
+            if (indent == filtering_indent)
+                filtering = 0;
+            if (indent >= filtering_indent)
+                continue;
         }
-        
+
         printf("%s", line);
     }
     
