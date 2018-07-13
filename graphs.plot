@@ -29,38 +29,39 @@ set style line 1 lt 2
 set style line 1 lt rgb '#A00000' ps 1 pt 5 lw 1
 set style line 2 lt 1 pt 6 lc rgb '#008000'
 set style line 3 lt 1 pt 4 lc rgb '#0000A0'
+set style line 4 lt 1 pt 4 lc rgb '#000000'
 
 set boxwidth .1
 set yrange [0:*]
 set xrange [-.5:*]
 set xtics ("node-express" 0, "redis-test" 1, "python-tornado" 2)
+set style fill solid 1 border lc rgb '#000000'
 
 set output 'graph-functions.png'
 set ylabel "Unique kernel functions accessed"
 plot \
-'results/summary-ftrace-runsck.dat' using ($0-.2):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid 1, \
-'results/summary-ftrace-runsck.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-runsc.dat' using ($0-.1):6 with boxes ls 3 title "gvisor" fillstyle solid .8, \
-'results/summary-ftrace-runsc.dat' using ($0-.1):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-runc.dat' using ($0):6 with boxes ls 3 title "docker" fillstyle solid .6, \
-'results/summary-ftrace-runc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-kata.dat' using ($0+.1):6 with boxes ls 3 title "kata" fillstyle solid .4, \
-'results/summary-ftrace-kata.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-ftrace-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .2, \
-'results/summary-ftrace-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
-
+'results/summary-ftrace-runc.dat' using ($0-.2):6 with boxes title "docker" lc rgb "#d73027", \
+'results/summary-ftrace-runc.dat' using ($0-.2):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-ftrace-runsc.dat' using ($0-.1):6 with boxes title "gvisor" lc rgb "#fc8d59", \
+'results/summary-ftrace-runsc.dat' using ($0-.1):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-ftrace-runsck.dat' using ($0):6 with boxes title "gvisor-kvm" lc rgb "#fee090", \
+'results/summary-ftrace-runsck.dat' using ($0):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-ftrace-kata.dat' using ($0+.1):6 with boxes title "kata" lc rgb "#e0f3f8", \
+'results/summary-ftrace-kata.dat' using ($0+.1):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-ftrace-runnc.dat' using ($0+.2):6 with boxes title "nabla" lc rgb "#91bfdb", \
+'results/summary-ftrace-runnc.dat' using ($0+.2):6:($6-$7):($6+$7) with errorbars ls 3 notitle
 
 set output 'graph-syscalls.png'
 set ylabel "Unique syscalls accessed"
 plot \
-'results/summary-syscalls-runsck.dat' using ($0-.2):6 with boxes ls 3 title "gvisor-kvm" fillstyle solid 1, \
-'results/summary-syscalls-runsck.dat' using ($0-.2):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runsc.dat' using ($0-.1):6 with boxes ls 3 title "gvisor" fillstyle solid .8, \
-'results/summary-syscalls-runsc.dat' using ($0-.1):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runc.dat' using ($0):6 with boxes ls 3 title "docker" fillstyle solid .6, \
-'results/summary-syscalls-runc.dat' using ($0):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-kata.dat' using ($0+.1):6 with boxes ls 3 title "kata" fillstyle solid .4, \
-'results/summary-syscalls-kata.dat' using ($0+.1):6:3:4 with errorbars ls 3 notitle, \
-'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes ls 3 title "nabla" fillstyle solid .2, \
-'results/summary-syscalls-runnc.dat' using ($0+.2):6:3:4 with errorbars ls 3 notitle
+'results/summary-syscalls-runc.dat' using ($0-.2):6 with boxes title "docker" lc rgb "#d73027", \
+'results/summary-syscalls-runc.dat' using ($0-.2):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-syscalls-runsc.dat' using ($0-.1):6 with boxes title "gvisor" lc rgb "#fc8d59", \
+'results/summary-syscalls-runsc.dat' using ($0-.1):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-syscalls-runsck.dat' using ($0):6 with boxes title "gvisor-kvm" lc rgb "#fee090", \
+'results/summary-syscalls-runsck.dat' using ($0):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-syscalls-kata.dat' using ($0+.1):6 with boxes title "kata" lc rgb "#e0f3f8", \
+'results/summary-syscalls-kata.dat' using ($0+.1):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes title "nabla" lc rgb "#91bfdb", \
+'results/summary-syscalls-runnc.dat' using ($0+.2):6:($6-$7):($6+$7) with errorbars ls 3 notitle
 
