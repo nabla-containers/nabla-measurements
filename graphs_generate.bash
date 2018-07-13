@@ -16,11 +16,11 @@
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 APPS="node-express redis-test python-tornado"
-SYSTEMS="runc runsc runnc kata runsck"
+SYSTEMS="kata runc runsc runnc runsck"
 
-for a in $APPS; do
-    for s in $SYSTEMS; do
-        for i in 1 2 3 4 5; do
+for s in $SYSTEMS; do
+    for ((i=1;i<5;i++)); do
+        for a in $APPS; do
             sudo ./runtest.bash $s nablact/$a results/$s-$a-$i;
         done;
     done;

@@ -62,18 +62,36 @@ case $RUNTIME in
 esac
 echo "## running $CONTAINER on $RUNTIME"
 
+until ping -c1 $IP > /dev/null; do :; done
 sleep 5
 
-# set pids to trace
+# find the pid root (docker runtime)
 PSROOT=`pstree -a -p --long \
      | grep "\-runtime\-root /var/run/docker/runtime\-$RUNTIME$" \
      | cut -f 2 -d ',' \
      | cut -f 1 -d ' '`
-pstree -a -p $PSROOT \
+pstree -a -p --long $PSROOT > $DIR/pidinfo
+# get all processes under the root
+cat $DIR/pidinfo \
     | cut -f 2 -d ',' \
     | cut -f 1 -d ' ' \
-    |sed s/\)//g \
-    |tee $DIR/pids > /sys/kernel/debug/tracing/set_ftrace_pid
+    | sed s/\)//g \
+    | sort > $DIR/root_pids
+# do we need to ignore non-runtime-related docker pids?
+# cat $DIR/pidinfo \
+#     | grep "\-{docker-containe},[0-9]*$" \
+#     | cut -d "," -f2 \
+#     | sort > $DIR/pids_ignored
+# find kernel processes that are related to the non-ignored ones
+#for p in `comm -23 $DIR/root_pids $DIR/pids_ignored`; do
+for p in `cat $DIR/root_pids`; do
+    echo $p
+    ps -auxH |grep $p | awk '{print $2}'
+done | sort | uniq > $DIR/pids
+ps -auxH  > $DIR/pidinfo_more
+# set pids to trace
+cat $DIR/pids > /sys/kernel/debug/tracing/set_ftrace_pid
+
 echo "## tracing pids under $PSROOT"
 
 # start the trace
