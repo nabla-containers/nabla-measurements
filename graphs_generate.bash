@@ -19,9 +19,10 @@ APPS="node-express redis-test python-tornado"
 SYSTEMS="kata runc runsc runnc runsck"
 
 for s in $SYSTEMS; do
-    for ((i=1;i<5;i++)); do
+    for ((i=1;i<=10;i++)); do
         for a in $APPS; do
             sudo ./runtest.bash $s nablact/$a results/$s-$a-$i;
+            sleep 5
         done;
     done;
 done
@@ -34,7 +35,7 @@ for a in $APPS; do
             cat $h | wc -l;
         done | st --no-header -d ' ';
     done;
-done >> results/summary-ftrace.dat
+done |sort >> results/summary-ftrace.dat
 for g in $SYSTEMS; do
     cat results/summary-ftrace.dat | grep $g- > results/summary-ftrace-$g.dat
 done
@@ -47,7 +48,7 @@ for a in $APPS; do
             cat $h |grep -i "^sys_" | wc -l
         done | st --no-header -d ' ';
     done;
-done >> results/summary-syscalls.dat
+done |sort >> results/summary-syscalls.dat
 for g in $SYSTEMS; do
     cat results/summary-syscalls.dat | grep $g- > results/summary-syscalls-$g.dat
 done

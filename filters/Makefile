@@ -14,11 +14,16 @@
 # NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-all: filter filter-errors
+all: filter-start filter-errors filter-interrupts
 
-filter: filter.c
+filter-start: filter-start.c
+	gcc -Wall -o $@ $<
+
+filter-interrupts: filter-interrupts.c
 	gcc -Wall -o $@ $<
 
 filter-errors: filter-errors.c
 	gcc -Wall -o $@ $<
 
+clean:
+	rm -f filter-start filter-errors filter-interrupts

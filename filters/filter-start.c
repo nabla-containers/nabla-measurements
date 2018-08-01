@@ -19,43 +19,34 @@
 #include <stdio.h>
 #include <string.h>
 
-/* Sometimes ftrace assigns a function to the wrong process.  This
- * uses indentation as a heuristic to try to filter out those errors. 
- */
-
-
-#define MAX_SP 101 /* maximum ftrace indent */
 #define BUFLEN 4096
 char buf[BUFLEN];
 
 int main(int argc, char **argv) {
+    int started = 0;
     char *line;
-    int expected_sp = -1;
-    
+
     while ((line = fgets(buf, BUFLEN, stdin)) != NULL) {
 
-        int sp = -1;
-        while(line[++sp] == ' ')
-            ;
+        if (!started) {
+            int i = -1;
+            while(line[++i] == ' ')
+                ;
 
-        if (expected_sp == -1)
-            expected_sp = sp;
-
-        if (line[sp] == '}') {
-            if (sp == expected_sp - 2) {
-                printf("%s", line);
-                expected_sp -= 2;
-            }
-        } else {
-            if (sp == expected_sp) {
-                printf("%s", line);
-                while(line[++sp] != '\n')
-                    ;
-                if (line[sp - 1] == '{')
-                    if (expected_sp + 2 <= MAX_SP)
-                        expected_sp += 2;
-            }
+            /* we don't start until we see the first system call,
+             * vcpu_enter_guest (for VMs), or kthread_should_stop (for
+             * kernel processes) */
+            if (!strncmp(line + i, "SyS", 3)
+                || !strncmp(line + i, "sys", 3)
+                || !strncmp(line + i, "do_syscall", 10)
+                || !strncmp(line + i, "kthread_should_stop", 19)
+                || !strncmp(line + i, "vcpu_enter_guest", 16))
+                started = 1;
+            else
+                continue;
         }
+
+        printf("%s", line);
     }
     
     return 0;
