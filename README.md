@@ -64,14 +64,14 @@ how we gather the relevant pids.  This is done by looking through
 specifying the `-runtime-root`, which is either `runtime-runc` (in the
 default case), `runtime-runnc` (in the nabla case), `runtime-kata` (in
 the kata containers case) or `runtime-runsc` (in the gvisor case).
+During the experiments, we pin all container runtime pids to core 0,
+to avoid confusing the function trace if a pid were to switch cores.
 
 We also process the raw traces primarily to eliminate interrupts,
-which may perform work on behalf of other processes.  There are two
+which may perform work on behalf of other processes.  There are three
 filtering programs, written in C, in the `filters/` directory to aid
-in removing interrupt-related functions from the raw trace.
-Occasionally, when encountering many context switches, ftrace seems to
-mistakenly assign a function call to the wrong pid. The program
-`filters/filter-errors.c` is used to identify and remove these lines.
+in removing interrupt-related functions from the raw trace.  See the
+README in that directory for more information.
 
 Once filtering and processing is complete, a list of the unique
 functions called should appear in `OUTPUT_DIR/trace.list`.  Counting
@@ -85,9 +85,7 @@ We have included some results for default docker, nabla, kata, and
 gvisor containers that were obtained using the `graphs_generate.bash`
 script.
 
-
 ![functions](https://github.com/nabla-containers/measurements/blob/master/graph-functions.png?raw=true)
-![syscalls](https://github.com/nabla-containers/measurements/blob/master/graph-syscalls.png?raw=true)
 
 
 [1]: https://github.com/nabla-containers/nabla-demo-apps/tree/master/node-express

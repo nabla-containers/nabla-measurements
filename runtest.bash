@@ -21,11 +21,13 @@ CONTAINER=$2
 DIR=$3
 IP=172.17.0.2
 
+(cd filters && make)
+
 # make output directory
 mkdir -p $DIR
 
 # pull latest test container
-docker pull $CONTAINER
+docker pull $CONTAINER-legacy
 docker pull $CONTAINER-nabla
 
 # set up kernel ftrace parameters
@@ -77,20 +79,22 @@ cat $DIR/pidinfo \
     | cut -f 1 -d ' ' \
     | sed s/\)//g \
     | sort > $DIR/root_pids
-# do we need to ignore non-runtime-related docker pids?
-# cat $DIR/pidinfo \
-#     | grep "\-{docker-containe},[0-9]*$" \
-#     | cut -d "," -f2 \
-#     | sort > $DIR/pids_ignored
-# find kernel processes that are related to the non-ignored ones
-#for p in `comm -23 $DIR/root_pids $DIR/pids_ignored`; do
+# find kernel processes that are related to them
 for p in `cat $DIR/root_pids`; do
     echo $p
     ps -auxH |grep $p | awk '{print $2}'
 done | sort | uniq > $DIR/pids
 ps -auxH  > $DIR/pidinfo_more
+
 # set pids to trace
 cat $DIR/pids > /sys/kernel/debug/tracing/set_ftrace_pid
+
+# pin to core 0 so that we don't get weird core-switching artifacts in
+# the trace
+for p in `cat $DIR/pids`; do
+    taskset -p 0x1 $p
+done
+sleep 5
 
 echo "## tracing pids under $PSROOT"
 
@@ -101,19 +105,19 @@ echo "## started tracing"
 # offer load
 case $CONTAINER in
     "nablact/python-tornado")
-        for ((i=0;i<30;i++)); do
+        for ((i=0;i<300;i++)); do
             sleep .1
             curl $IP:5000
         done
         ;;
     "nablact/redis-test")
-        for ((i=0;i<30;i++)); do
+        for ((i=0;i<300;i++)); do
             sleep .1
             redis-cli -h $IP -p 6379 set foo$i bar$i
         done
         ;;
     "nablact/node-express")
-        for ((i=0;i<30;i++)); do
+        for ((i=0;i<300;i++)); do
             sleep .1
             curl $IP:8080
         done
@@ -137,10 +141,12 @@ for p in `cat $DIR/pids`; do
         | grep -v "=>" \
         | tee $DIR/$p.raw \
         | cut -f 2 -d '|' \
-        | filters/filter \
-        | tee $DIR/$p.filt \
+        | filters/filter-start \
+        | tee $DIR/$p.filt-s \
         | filters/filter-errors \
-        | tee $DIR/$p.filt2 \
+        | tee $DIR/$p.filt-se \
+        | filters/filter-interrupts \
+        | tee $DIR/$p.filt-sei \
         | sort | uniq \
         | grep -v "}" \
         | cut -f 1 -d '(' \
@@ -148,4 +154,5 @@ for p in `cat $DIR/pids`; do
         | uniq \
         | tee $DIR/$p.list
 done | sort |uniq > $DIR/trace.list
+
 echo "## processed data"
