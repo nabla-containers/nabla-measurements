@@ -53,4 +53,36 @@ for g in $SYSTEMS; do
     cat results/summary-syscalls.dat | grep $g- > results/summary-syscalls-$g.dat
 done
 
+bash ./complexity.bash
+
+echo -n "# test " > results/summary-complexity.list.dat
+echo -n "[sum: N min max sum mean stddev]" >> results/summary-complexity.list.dat
+echo -n "[max: N min max sum mean stddev]" >> results/summary-complexity.list.dat
+echo -n "[mean: N min max sum mean stddev]" >> results/summary-complexity.list.dat
+echo    "[unknown: N min max sum mean stddev]" >> results/summary-complexity.list.dat
+for a in $APPS; do
+    for s in $SYSTEMS; do
+        echo -n "$s-$a ";
+        # sum
+        for h in results/$s-$a*/complexity.list; do
+            cat $h | grep -v "^#" | cut -f 4 -d ' '
+        done | st --no-header -d ' ' | tr '\n' ' ';
+        # max
+        for h in results/$s-$a*/complexity.list; do
+            cat $h | grep -v "^#" | cut -f 3 -d ' '
+        done | st --no-header -d ' ' | tr '\n' ' ';
+        #  mean
+        for h in results/$s-$a*/complexity.list; do
+            cat $h | grep -v "^#" | cut -f 5 -d ' '
+        done | st --no-header -d ' ' | tr '\n' ' ';
+        # unknown sum
+        for h in results/$s-$a*/complexity.list; do
+            cat $h | grep -v "^#" | cut -f 7 -d ' '
+        done | st --no-header -d ' ';
+    done;
+done | sort >> results/summary-complexity.list.dat
+for g in $SYSTEMS; do
+    cat results/summary-complexity.list.dat | grep $g- > results/summary-complexity-list-$g.dat
+done
+
 gnuplot graphs.plot

@@ -1,7 +1,8 @@
 This is a repository containing the methodology for some experiments
 used to evaluate one aspect of container isolation: the attack surface
 to the host kernel.  More specifically, these experiments measure how
-many kernel functions are accessed by an application as it runs.
+many kernel functions are accessed by an application as it runs and
+how complex those functions are.
 
 The script `runtest.bash` performs a run of a test on one of the
 Docker containers that we have provided in the
@@ -79,6 +80,14 @@ the lines in this file will give a count of the unique functions.
 Alternately, grepping for functions starting with sys will show the
 system calls (e.g., `grep -i "^sys\_"`)
 
+### Complexity
+
+To get a sense of how complex the unique functions are, we also
+perform a complexity analysis using the GNU `complexity` tool.  We run
+complexity over the kernel version we used (sample output is included
+in this repository in the file named `./complexity`).  Then, we
+use those numbers to compute a total complexity sum for each case.
+
 ### Our results
 
 We have included some results for default docker, nabla, kata, and
@@ -86,6 +95,8 @@ gvisor containers that were obtained using the `graphs_generate.bash`
 script.
 
 ![functions](https://github.com/nabla-containers/measurements/blob/master/graph-functions.png?raw=true)
+
+![complexity](https://github.com/nabla-containers/measurements/blob/master/graph-complexity.png?raw=true)
 
 
 [1]: https://github.com/nabla-containers/nabla-demo-apps/tree/master/node-express

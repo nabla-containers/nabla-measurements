@@ -64,3 +64,17 @@ plot \
 'results/summary-syscalls-kata.dat' using ($0+.1):6:($6-$7):($6+$7) with errorbars ls 3 notitle, \
 'results/summary-syscalls-runnc.dat' using ($0+.2):6 with boxes title "nabla" lc rgb "#91bfdb", \
 'results/summary-syscalls-runnc.dat' using ($0+.2):6:($6-$7):($6+$7) with errorbars ls 3 notitle
+
+set output 'graph-complexity.png'
+set ylabel "Sum of complexity metric"
+plot \
+'results/summary-complexity-list-runc.dat' using ($0-.2):($6) with boxes title "docker" lc rgb "#d73027", \
+'results/summary-complexity-list-runc.dat' using ($0-.2):($6):($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-complexity-list-runsc.dat' using ($0-.1):($6) with boxes title "gvisor" lc rgb "#fc8d59", \
+'results/summary-complexity-list-runsc.dat' using ($0-.1):($6):($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-complexity-list-runsck.dat' using ($0):($6) with boxes title "gvisor-kvm" lc rgb "#fee090", \
+'results/summary-complexity-list-runsck.dat' using ($0):($6):($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-complexity-list-kata.dat' using ($0+.1):($6) with boxes title "kata" lc rgb "#e0f3f8", \
+'results/summary-complexity-list-kata.dat' using ($0+.1):($6):($6-$7):($6+$7) with errorbars ls 3 notitle, \
+'results/summary-complexity-list-runnc.dat' using ($0+.2):($6) with boxes title "nabla" lc rgb "#91bfdb", \
+'results/summary-complexity-list-runnc.dat' using ($0+.2):($6):($6-$7):($6+$7) with errorbars ls 3 notitle
