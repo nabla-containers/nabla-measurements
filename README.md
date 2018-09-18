@@ -24,12 +24,12 @@ currently be `runc` (default docker), `runnc` (nabla), `kata` (kata
 containers), `runsc` (gvisor), or `runsck` (gvisor in kvm mode), and
 CONTAINER is one of those specified above.  Here are some examples:
 
-    sudo ./runtest.bash runc node-express results/docker-node-express
-    sudo ./runtest.bash runnc node-express results/nabla-node-express
-    sudo ./runtest.bash kata node-express results/kata-node-express
-    sudo ./runtest.bash runsc node-express results/gvisor-node-express
-    sudo ./runtest.bash runsck node-express results/gvisork-node-express           
-
+    sudo ./runtest.bash runc nablact/node-express results/docker-node-express
+    sudo ./runtest.bash runnc nablact/node-express results/nabla-node-express
+    sudo ./runtest.bash kata nablact/node-express results/kata-node-express
+    sudo ./runtest.bash runsc nablact/node-express results/gvisor-node-express
+    sudo ./runtest.bash runsck nablact/node-express results/gvisork-node-express
+    
 We inform the Docker daemon of the alternate runtimes by adding them
 to `/etc/docker/daemon.json` (as also described in the [`runnc`
 repository](https://github.com/nabla-containers/runnc)):
