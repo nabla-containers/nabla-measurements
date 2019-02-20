@@ -16,7 +16,7 @@
 # CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 APPS="node-express redis-test python-tornado"
-SYSTEMS="kata runc runsc runnc runsck"
+SYSTEMS="katafc kata runc runsc runnc runsck"
 
 for s in $SYSTEMS; do
     for ((i=1;i<=10;i++)); do

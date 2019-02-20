@@ -21,12 +21,14 @@ ends up in a directory for later perusal.
 The easiest way to replicate a test is to run commands of the form
 `./runtest.bash <RUNTIME> <CONTAINER> <OUTPUT_DIR>`.  RUNTIME can
 currently be `runc` (default docker), `runnc` (nabla), `kata` (kata
-containers), `runsc` (gvisor), or `runsck` (gvisor in kvm mode), and
-CONTAINER is one of those specified above.  Here are some examples:
+containers), `katafc` (kata containers with firecracker), `runsc`
+(gvisor), or `runsck` (gvisor in kvm mode), and CONTAINER is one of
+those specified above.  Here are some examples:
 
     sudo ./runtest.bash runc nablact/node-express results/docker-node-express
     sudo ./runtest.bash runnc nablact/node-express results/nabla-node-express
     sudo ./runtest.bash kata nablact/node-express results/kata-node-express
+    sudo ./runtest.bash katafc nablact/node-express results/katafc-node-express
     sudo ./runtest.bash runsc nablact/node-express results/gvisor-node-express
     sudo ./runtest.bash runsck nablact/node-express results/gvisork-node-express
     
@@ -50,9 +52,35 @@ repository](https://github.com/nabla-containers/runnc)):
                 "--platform=kvm"
             ]
         }
-
     }
 
+Note that in order to use kata with firecracker (`katafc`), there is a
+dependency on devicemapper that requires a particular (old) version of
+Docker.  For more information, see [this
+link](https://github.com/kata-containers/documentation/wiki/Initial-release-of-Kata-Containers-with-Firecracker-support).
+As a result, the above file needs further specification:
+
+    "runtimes": {
+        "storage-driver": "devicemapper",
+        "runnc": {
+            "path": "/usr/local/bin/runnc"
+        },
+        "kata": {
+            "path": "/usr/bin/kata-runtime"
+        },
+        "katafc": {
+            "path": "/opt/kata/bin/kata-fc"
+        },
+        "runsc": {
+            "path": "/usr/local/bin/runsc"
+        },
+        "runsck": {
+            "path": "/usr/local/bin/runsc",
+            "runtimeArgs": [
+                "--platform=kvm"
+            ]
+        }
+    }
 
 
 ###  Technical notes

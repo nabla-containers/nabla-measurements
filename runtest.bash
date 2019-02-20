@@ -58,6 +58,9 @@ case $RUNTIME in
     "kata")
         docker run -d --rm --runtime=kata --name=tracetest $CONTAINER-legacy
         ;;
+    "katafc")
+        docker run -d --rm --runtime=katafc --name=tracetest $CONTAINER-legacy
+        ;;
     "runnc")
         docker run -d --rm --runtime=runnc --name=tracetest $CONTAINER-nabla
         ;;
